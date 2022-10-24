@@ -8,7 +8,11 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HeaderComponent} from "./components/header/header.component";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatInputModule} from "@angular/material/input";
+import {MatFormFieldModule} from "@angular/material/form-field";
 import {ReactiveFormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
+import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
+import { EmployeeService } from "./services/employee.service";
 
 @NgModule({
     declarations: [
@@ -24,6 +28,14 @@ import {ReactiveFormsModule} from "@angular/forms";
         ReactiveFormsModule,
         MatToolbarModule,
         MatInputModule,
+        MatFormFieldModule,
+        HttpClientModule,
+        // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
+        // and returns simulated server responses.
+        // Remove it when a real server is ready to receive requests.
+        HttpClientInMemoryWebApiModule.forRoot(
+            EmployeeService, { dataEncapsulation: false }
+        ),
     ],
     providers: [],
     bootstrap: [AppComponent],
