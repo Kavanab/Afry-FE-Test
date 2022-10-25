@@ -1,5 +1,6 @@
-import {Component, ChangeDetectionStrategy} from "@angular/core";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Component, ChangeDetectionStrategy, OnInit} from "@angular/core";
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
+import {EmployeeService} from "../../services/employee.service";
 
 @Component({
     selector: "app-create-employee",
@@ -7,20 +8,31 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
     styleUrls: ["./create-employee.component.scss"],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateEmployeeComponent {
+export class CreateEmployeeComponent implements OnInit{
 
     
-    constructor(private fb: FormBuilder) {}
+    constructor(
+        private fb: UntypedFormBuilder, 
+        private employeeService: EmployeeService,
+    ) {
+
+    }
     
-    createEmployeeForm: FormGroup = this.fb.group({
+    createEmployeeForm: UntypedFormGroup = this.fb.group({
         firstName: [null, Validators.required],
         lastName: [null],
         companyName: [null],
     });
 
+    ngOnInit(): void {
+        this.employeeService.getEmployees().subscribe((data) => console.log("empdata: ", data));
+    }
+
     onCreate() {
         if(this.createEmployeeForm.valid) {
-            console.log(this.createEmployeeForm.value);
+            this.employeeService.createEmployee({...this.createEmployeeForm.value}).subscribe((data) => {
+                this.employeeService.getEmployees().subscribe((data1) => console.log("empdata: ", data1));
+            });
         }
     }
 }
