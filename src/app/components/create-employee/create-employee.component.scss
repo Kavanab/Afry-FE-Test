@@ -1,3 +1,6 @@
+.page-title {
+    margin-top: 5%;
+}
 .create-employee-form {
     display: flex;
     flex-direction: column;
@@ -7,9 +10,22 @@
     padding: 1.25rem;
 }
 .create-employee-form-container {
-    margin-top: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+    width: 100%;
+    flex-direction: column;
+}
+.create-employee-form-card {
+    width: 50%;
 }
 .button-wrapper {
     display: flex;
     justify-content: center;
+}
+.mat-card-title {
+    font-family: serif;
+    margin: 2rem;
+    align-self: flex-start;
 }

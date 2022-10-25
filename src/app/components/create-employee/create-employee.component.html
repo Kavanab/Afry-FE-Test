@@ -1,19 +1,26 @@
-<div class="create-employee-form-container">
-    <form [formGroup]="createEmployeeForm" class="create-employee-form">
-        <mat-form-field class="example-full-width" appearance="outline">
-            <input matInput formControlName="firstName" placeholder="Please enter your first name">
-            <mat-error *ngIf="createEmployeeForm.get('firstName')?.hasError('required')">
-                First name is <strong>required</strong>
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="outline">
-            <input matInput formControlName="lastName" placeholder="Please enter your last name">
-        </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="outline">
-            <input matInput formControlName="companyName" placeholder="Please enter your company name">
-        </mat-form-field>
-        <div class="button-wrapper">
-            <button mat-raised-button color="primary" (click)="onCreate()">Create employee</button>
+<ng-container> 
+    <div class="page-title">
+        <mat-card-title>Employee form</mat-card-title>
+    </div>
+    <div class="create-employee-form-container">
+        <div class="create-employee-form-card">
+            <form [formGroup]="createEmployeeForm" class="create-employee-form">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <input matInput formControlName="firstName" placeholder="Please enter your first name">
+                    <mat-error *ngIf="createEmployeeForm.get('firstName')?.hasError('required')">
+                        First name is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <input matInput formControlName="lastName" placeholder="Please enter your last name">
+                </mat-form-field>
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <input matInput formControlName="companyName" placeholder="Please enter your company name">
+                </mat-form-field>
+                <div class="button-wrapper">
+                    <button mat-raised-button color="primary" (click)="onCreate()" [disabled]="!createEmployeeForm.valid">Create employee</button>
+                </div>
+            </form>
         </div>
-    </form>
-</div>
+    </div>
+</ng-container>

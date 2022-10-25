@@ -8,7 +8,6 @@ body {
     background: linear-gradient(to right, #240b36, #c31432);
     color: #ffff;
 }
-form{width:420px;margin:35px auto 100px;display:block;float:none;}
 .mat-form-field{
     width:100%;
 }
@@ -17,3 +16,20 @@ form{width:420px;margin:35px auto 100px;display:block;float:none;}
 .mat-radio-label{margin:0 15px 0 0;}
 .title-center{margin:0 auto;}
 .button-wrapper{margin-top:10px;}
+
+.mat-simple-snackbar {
+    font-size: 1.2em;
+    color: white;
+}
+
+.snackbar-error {
+    background-color: red;
+}
+
+.snackbar-success {
+    background-color: green;
+}
+
+.snackbar-info {
+    background-color: blue;
+}

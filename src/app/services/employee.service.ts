@@ -3,6 +3,7 @@ import {Injectable} from "@angular/core";
 import {Observable, of} from "rxjs";
 import {Employee} from "../model/employee";
 import {catchError, map} from "rxjs/operators";
+import {SnackbarService} from "./snackbar.service";
 
 @Injectable({providedIn: "root"})
 export class EmployeeService {
@@ -11,7 +12,10 @@ export class EmployeeService {
         headers: new HttpHeaders({"Content-Type": "application/json"}),
     };
 
-    constructor(private http: HttpClient) {
+    constructor(
+        private http: HttpClient,
+        private snackbar: SnackbarService,
+    ) {
     }
 
     genId(employees: Employee[]): number {
@@ -34,20 +38,19 @@ export class EmployeeService {
     }
 
     createEmployee(employee: Employee): Observable<Employee> {
-        console.log(employee);
-        
         return this.http.post<Employee>(this.employeesUrl, employee, this.httpOptions).pipe(
-            map(data => data),
+            map(data => {
+                this.snackbar.success(`Created employee ${data.firstName} ${data.lastName}`);
+                return data;
+            }),
             catchError(this.handleError<Employee>("addEmployee")),
         );
     }
 
     private handleError<T>(operation = "operation", result?: T) {
         return (error: any): Observable<T> => {
-      
-            console.error(error); 
-            console.log(`${operation} failed: ${error.message}`);
-
+            console.log(`${operation} failed: ${error}`);
+            this.snackbar.error(`${operation} failed: ${error.message}`);
             // Let the app keep running by returning an empty result.
             return of(result as T);
         };
