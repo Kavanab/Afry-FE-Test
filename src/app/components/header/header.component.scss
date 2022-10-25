@@ -1,8 +1,15 @@
-.example-spacer {
-    flex: 1 1 auto;
-}
 .welcome-message {
     font-family: serif;
     font-weight: 500;
     font-size: x-large;
+}
+.header-container {
+    display: flex;
+    width: 100%;
+}
+.mat-toolbar-single-row {
+    justify-content: flex-end;
+}
+.mat-icon-button {
+    margin-left: 3rem !important;
 }

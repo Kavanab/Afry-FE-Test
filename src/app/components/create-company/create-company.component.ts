@@ -1,4 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit} from "@angular/core";
+import {Company} from "../../model/company";
+import {CompanyService} from "src/app/services/company.service";
 
 @Component({
     selector: "app-create-company",
@@ -8,15 +10,16 @@ import {ChangeDetectionStrategy, Component, OnInit} from "@angular/core";
 })
 export class CreateCompanyComponent implements OnInit {
 
-    companies: any = [];
-
-    constructor() { }
+    constructor(
+        private companyService: CompanyService,
+    ) { }
 
     ngOnInit(): void {
-        this.companies = [{
-            id:1,
-            name: "test comapny",
-        }];
+        this.companyService.getCompanies().subscribe((data) => console.log("compdata: ", data));
+    }
+
+    onAddCompany() {
+        //open a modal to create a company
     }
 
 }

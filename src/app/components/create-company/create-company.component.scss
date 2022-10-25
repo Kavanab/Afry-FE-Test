@@ -1,0 +1,17 @@
+.page-title {
+    margin-top: 5%;
+}
+.mat-card-title {
+    font-family: serif;
+    margin: 2rem;
+    align-self: flex-start;
+}
+.create-company-container {
+    display: flex;
+    flex-direction: column;
+}
+.button-wrapper {
+    justify-content: flex-end;
+    display: flex;
+    margin-right: 5rem;
+}
