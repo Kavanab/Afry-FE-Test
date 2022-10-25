@@ -1,6 +1,6 @@
 import {Component, ChangeDetectionStrategy, OnInit} from "@angular/core";
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
-import { EmployeeService } from "src/app/services/employee.service";
+import {EmployeeService} from "../../services/employee.service";
 
 @Component({
     selector: "app-create-employee",
@@ -25,12 +25,14 @@ export class CreateEmployeeComponent implements OnInit{
     });
 
     ngOnInit(): void {
-       this.employeeService.getEmployees().subscribe((data)=> console.log("empdata: ",data));
+        this.employeeService.getEmployees().subscribe((data) => console.log("empdata: ", data));
     }
 
     onCreate() {
         if(this.createEmployeeForm.valid) {
-            console.log(this.createEmployeeForm.value);
+            this.employeeService.createEmployee({...this.createEmployeeForm.value}).subscribe((data) => {
+                this.employeeService.getEmployees().subscribe((data1) => console.log("empdata: ", data1));
+            });
         }
     }
 }

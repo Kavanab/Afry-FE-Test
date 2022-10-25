@@ -1,36 +1,17 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { InMemoryDbService } from "angular-in-memory-web-api";
-import { Observable, of } from "rxjs";
-import { Employee } from "../model/employee";
-import { catchError, map, tap } from "rxjs/operators";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Injectable} from "@angular/core";
+import {Observable, of} from "rxjs";
+import {Employee} from "../model/employee";
+import {catchError, map} from "rxjs/operators";
 
-@Injectable({
-  providedIn: "root"
-})
-export class EmployeeService implements InMemoryDbService{
-    private employeeList: Employee[] = [];
-    private employeesUrl = "api/employee";
+@Injectable({providedIn: "root"})
+export class EmployeeService {
+    private employeesUrl = "api/employees";
+    httpOptions = {
+        headers: new HttpHeaders({"Content-Type": "application/json"}),
+    };
 
-    createDb() {
-        this.employeeList = [
-            {
-                "id": 1,
-                "firstName": "Captian",
-                "lastName": "America",
-                "companyId": 1
-            },
-            {
-                "id": 2,
-                "firstName": "Iron",
-                "lastName": "Man",
-                "companyId": 2
-            }
-        ];
-        return {...this.employeeList};
-    }
-
-    constructor(private http: HttpClient) { 
+    constructor(private http: HttpClient) {
     }
 
     genId(employees: Employee[]): number {
@@ -38,9 +19,8 @@ export class EmployeeService implements InMemoryDbService{
     }
 
     getEmployees(): Observable<Employee[]> {
-        return this.http.get<Employee[]>(this.employeesUrl)
-        .pipe(
-            catchError(this.handleError<Employee[]>("getEmployees", []))
+        return this.http.get<Employee[]>(this.employeesUrl).pipe(
+            catchError(this.handleError<Employee[]>("getEmployees", [])),
         );
     }
 
@@ -49,18 +29,27 @@ export class EmployeeService implements InMemoryDbService{
         const url = `${this.employeesUrl}/${id}`;
         return this.http.get<Employee>(url).pipe(
             map(data => data),
-            catchError(this.handleError<Employee>(`getEmployee id=${id}`))
+            catchError(this.handleError<Employee>(`getEmployee id=${id}`)),
+        );
+    }
+
+    createEmployee(employee: Employee): Observable<Employee> {
+        console.log(employee);
+        
+        return this.http.post<Employee>(this.employeesUrl, employee, this.httpOptions).pipe(
+            map(data => data),
+            catchError(this.handleError<Employee>("addEmployee")),
         );
     }
 
     private handleError<T>(operation = "operation", result?: T) {
         return (error: any): Observable<T> => {
       
-          console.error(error); 
-          console.log(`${operation} failed: ${error.message}`);
+            console.error(error); 
+            console.log(`${operation} failed: ${error.message}`);
 
-          // Let the app keep running by returning an empty result.
-          return of(result as T);
+            // Let the app keep running by returning an empty result.
+            return of(result as T);
         };
-      }
+    }
 }
