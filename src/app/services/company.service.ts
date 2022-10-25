@@ -43,7 +43,7 @@ export class CompanyService {
     createCompany(company: Company): Observable<Company> {
         return this.http.post<Company>(this.companiesUrl, company, this.httpOptions).pipe(
             map(data => {
-                this.snackbar.success(`Created employee ${data.name}`);
+                this.snackbar.success(`Created company ${data.name}`);
                 return data;
             }),
             catchError(this.handleError<Company>("addCompany")),
