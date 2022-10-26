@@ -12,13 +12,13 @@ export class CreateEmployeeComponent implements OnInit{
 
     
     constructor(
-        private fb: UntypedFormBuilder, 
+        private formBuilder: UntypedFormBuilder, 
         private employeeService: EmployeeService,
     ) {
 
     }
     
-    createEmployeeForm: UntypedFormGroup = this.fb.group({
+    createEmployeeForm: UntypedFormGroup = this.formBuilder.group({
         firstName: [null, Validators.required],
         lastName: [null],
         companyName: [null],
@@ -28,7 +28,7 @@ export class CreateEmployeeComponent implements OnInit{
         this.employeeService.getEmployees().subscribe((data) => console.log("empdata: ", data));
     }
 
-    onCreate() {
+    onCreateEmployee() {
         if(this.createEmployeeForm.valid) {
             this.employeeService.createEmployee({...this.createEmployeeForm.value}).subscribe((data) => {
                 this.employeeService.getEmployees().subscribe((data1) => console.log("empdata: ", data1));

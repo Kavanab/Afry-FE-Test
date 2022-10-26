@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Add a company</h1>
+<div mat-dialog-content>
+  <form #companyForm="ngForm">
+    <mat-form-field>
+        <input matInput [(ngModel)]="data.name" name="data.name" #name="ngModel" 
+               placeholder="Enter your company's name" required>
+    </mat-form-field>
+    <mat-error *ngIf="(name.touched || companyForm.submitted) && name.errors?.required">
+        Company name is <strong>required</strong>
+    </mat-error>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button [mat-dialog-close]="data.name" [disabled]="!data.name">Add</button>
+</div>

@@ -6,7 +6,7 @@
         <div class="create-employee-form-card">
             <form [formGroup]="createEmployeeForm" class="create-employee-form">
                 <mat-form-field class="example-full-width" appearance="outline">
-                    <input matInput formControlName="firstName" placeholder="Please enter your first name">
+                    <input matInput formControlName="firstName" placeholder="Please enter your first name" required>
                     <mat-error *ngIf="createEmployeeForm.get('firstName')?.hasError('required')">
                         First name is <strong>required</strong>
                     </mat-error>
@@ -18,7 +18,7 @@
                     <input matInput formControlName="companyName" placeholder="Please enter your company name">
                 </mat-form-field>
                 <div class="button-wrapper">
-                    <button mat-raised-button color="primary" (click)="onCreate()" [disabled]="!createEmployeeForm.valid">Create employee</button>
+                    <button mat-raised-button color="primary" (click)="onCreateEmployee()" [disabled]="!createEmployeeForm.valid">Create employee</button>
                 </div>
             </form>
         </div>

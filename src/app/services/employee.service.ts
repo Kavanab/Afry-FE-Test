@@ -28,7 +28,7 @@ export class EmployeeService {
         );
     }
 
-    /** GET hero by id. Will 404 if id not found */
+    /** GET employee by id. Will 404 if id not found */
     getEmployeeById(id: number): Observable<Employee> {
         const url = `${this.employeesUrl}/${id}`;
         return this.http.get<Employee>(url).pipe(

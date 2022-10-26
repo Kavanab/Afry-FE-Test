@@ -1,4 +1,8 @@
 import {ChangeDetectionStrategy, Component, OnInit} from "@angular/core";
+import {Company} from "../../model/company";
+import {CompanyService} from "src/app/services/company.service";
+import {MatDialog} from "@angular/material/dialog";
+import {AddCompanyModalComponent} from "../add-company-modal/add-company-modal.component";
 
 @Component({
     selector: "app-create-company",
@@ -8,15 +12,31 @@ import {ChangeDetectionStrategy, Component, OnInit} from "@angular/core";
 })
 export class CreateCompanyComponent implements OnInit {
 
-    companies: any = [];
+    name: string = "";
 
-    constructor() { }
+    constructor(
+        private companyService: CompanyService,
+        public dialog: MatDialog
+    ) { }
 
     ngOnInit(): void {
-        this.companies = [{
-            id:1,
-            name: "test comapny",
-        }];
+        this.companyService.getCompanies().subscribe((data) => console.log("compdata: ", data));
+    }
+
+    onAddCompany() {
+        //open a modal to create a company
+        const dialogRef = this.dialog.open(AddCompanyModalComponent, {
+            width: "50%",
+            data: {name: this.name},
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.companyService.createCompany({name: result} as Company).subscribe(data => {
+                    this.companyService.getCompanies().subscribe((compData) => console.log("compdata: ", compData));
+                });
+            }
+        });
     }
 
 }

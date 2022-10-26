@@ -1,3 +1,16 @@
-<mat-toolbar>
-    <span class="welcome-message">Welcome, Admin!</span>
-</mat-toolbar>
+<div class="header-container">
+    <mat-toolbar>
+        <span class="welcome-message">Welcome, Admin!</span>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Button with a menu">
+            <mat-icon aria-hidden="false" aria-label="menu icon" fontIcon="menu"></mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item routerLink="/employee">
+              <span>Create employee</span>
+            </button>
+            <button mat-menu-item routerLink="/company">
+              <span>Create company</span>
+            </button>
+        </mat-menu>
+    </mat-toolbar>
+</div>

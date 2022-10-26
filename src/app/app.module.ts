@@ -11,6 +11,8 @@ import {HttpClientModule} from "@angular/common/http";
 import {HttpClientInMemoryWebApiModule} from "angular-in-memory-web-api";
 import {DataService} from "./services/data.service";
 import {AngularMaterialModule} from "./material.module";
+import {FormsModule} from "@angular/forms";
+import {AddCompanyModalComponent} from "./components/add-company-modal/add-company-modal.component";
 
 @NgModule({
     declarations: [
@@ -18,12 +20,14 @@ import {AngularMaterialModule} from "./material.module";
         CreateCompanyComponent,
         CreateEmployeeComponent,
         HeaderComponent,
+        AddCompanyModalComponent,
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
         ReactiveFormsModule,
+        FormsModule,
         AngularMaterialModule,
         HttpClientModule,
         // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
