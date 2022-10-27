@@ -1,5 +1,6 @@
 import {Component, ChangeDetectionStrategy, Input, Output, EventEmitter, OnChanges, SimpleChanges} from "@angular/core";
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
+import {Company} from "../../model/company";
 import {Employee} from "../../model/employee";
 
 @Component({
@@ -11,6 +12,7 @@ import {Employee} from "../../model/employee";
 export class CreateEmployeeComponent implements OnChanges {
 
     @Input() employeeList: Employee[];
+    @Input() companyList: Company[];
     @Output() createEmployee: EventEmitter<Employee> = new EventEmitter();
 
     constructor(

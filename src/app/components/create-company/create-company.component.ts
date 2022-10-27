@@ -1,6 +1,5 @@
-import {ChangeDetectionStrategy, Component, OnInit} from "@angular/core";
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from "@angular/core";
 import {Company} from "../../model/company";
-import {CompanyService} from "src/app/services/company.service";
 import {MatDialog} from "@angular/material/dialog";
 import {AddCompanyModalComponent} from "../add-company-modal/add-company-modal.component";
 
@@ -10,17 +9,19 @@ import {AddCompanyModalComponent} from "../add-company-modal/add-company-modal.c
     styleUrls: ["./create-company.component.scss"],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateCompanyComponent implements OnInit {
+export class CreateCompanyComponent implements OnChanges {
 
     name: string = "";
 
+    @Input() companyList: Company[];
+    @Output() createCompany: EventEmitter<Company> = new EventEmitter();
+
     constructor(
-        private companyService: CompanyService,
         public dialog: MatDialog,
     ) { }
 
-    ngOnInit(): void {
-        this.companyService.getCompanies().subscribe((data) => console.log("compdata: ", data));
+    ngOnChanges(changes: SimpleChanges): void {
+        console.log(this.companyList);
     }
 
     onAddCompany() {
@@ -32,9 +33,7 @@ export class CreateCompanyComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.companyService.createCompany({name: result} as Company).subscribe(data => {
-                    this.companyService.getCompanies().subscribe((compData) => console.log("compdata: ", compData));
-                });
+                this.createCompany.emit({name: result} as Company);
             }
         });
     }

@@ -23,4 +23,4 @@ export class AddEmployeeFailure implements Action {
     constructor(public error: HttpErrorResponse) {}
 }
 
-export type EmployeeActions = AddEmployee | AddEmployeeSuccess;
+export type EmployeeActions = AddEmployee | AddEmployeeSuccess | AddEmployeeFailure;

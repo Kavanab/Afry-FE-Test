@@ -18,6 +18,9 @@ import {EmployeeReducer} from "./store/employee/employee.reducer";
 import {EmployeeEffects} from "./store/employee/employee.effects";
 import {CreateEmployeeContainerComponent} from "./containers/employee/create-employee-container.component";
 import {EffectsModule} from "@ngrx/effects";
+import {CompanyEffects} from "./store/company/company.effects";
+import {CompanyReducer} from "./store/company/company.reducer";
+import {CreateCompanyContainerComponent} from "./containers/company/create-company-container.component";
 
 @NgModule({
     declarations: [
@@ -27,6 +30,7 @@ import {EffectsModule} from "@ngrx/effects";
         CreateEmployeeContainerComponent,
         HeaderComponent,
         AddCompanyModalComponent,
+        CreateCompanyContainerComponent,
     ],
     imports: [
         BrowserModule,
@@ -44,9 +48,11 @@ import {EffectsModule} from "@ngrx/effects";
         ),
         StoreModule.forRoot({
             employees: EmployeeReducer,
+            companies: CompanyReducer,
         }),
         EffectsModule.forRoot([
             EmployeeEffects,
+            CompanyEffects,
         ]),
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],

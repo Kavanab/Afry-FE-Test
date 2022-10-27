@@ -13,26 +13,16 @@ export class DataService implements InMemoryDbService {
         return {
             employees: [
                 {
-                    "id": 1,
-                    "firstName": "Captian",
-                    "lastName": "America",
-                    "companyId": 1,
-                },
-                {
-                    "id": 2,
-                    "firstName": "Iron",
-                    "lastName": "Man",
-                    "companyId": 2,
+                    "id": 0,
+                    "firstName": "demo",
+                    "lastName": "",
+                    "companyId": 0,
                 },
             ],
             companies: [
                 {
-                    "id": 1,
-                    "name": "Avengers",
-                },
-                {
-                    "id": 2,
-                    "name": "Marvel",
+                    "id": 0,
+                    "name": "demo",
                 },
             ],
         };
