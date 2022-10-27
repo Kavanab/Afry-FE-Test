@@ -13,14 +13,24 @@ import {DataService} from "./services/data.service";
 import {AngularMaterialModule} from "./material.module";
 import {FormsModule} from "@angular/forms";
 import {AddCompanyModalComponent} from "./components/add-company-modal/add-company-modal.component";
+import {StoreModule} from "@ngrx/store";
+import {EmployeeReducer} from "./store/employee/employee.reducer";
+import {EmployeeEffects} from "./store/employee/employee.effects";
+import {CreateEmployeeContainerComponent} from "./containers/employee/create-employee-container.component";
+import {EffectsModule} from "@ngrx/effects";
+import {CompanyEffects} from "./store/company/company.effects";
+import {CompanyReducer} from "./store/company/company.reducer";
+import {CreateCompanyContainerComponent} from "./containers/company/create-company-container.component";
 
 @NgModule({
     declarations: [
         AppComponent,
         CreateCompanyComponent,
         CreateEmployeeComponent,
+        CreateEmployeeContainerComponent,
         HeaderComponent,
         AddCompanyModalComponent,
+        CreateCompanyContainerComponent,
     ],
     imports: [
         BrowserModule,
@@ -36,6 +46,14 @@ import {AddCompanyModalComponent} from "./components/add-company-modal/add-compa
         HttpClientInMemoryWebApiModule.forRoot(
             DataService, { dataEncapsulation: false },
         ),
+        StoreModule.forRoot({
+            employees: EmployeeReducer,
+            companies: CompanyReducer,
+        }),
+        EffectsModule.forRoot([
+            EmployeeEffects,
+            CompanyEffects,
+        ]),
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     providers: [],

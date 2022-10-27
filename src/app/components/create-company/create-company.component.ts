@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy, Component, OnInit} from "@angular/core";
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from "@angular/core";
 import {Company} from "../../model/company";
-import {CompanyService} from "src/app/services/company.service";
 import {MatDialog} from "@angular/material/dialog";
 import {AddCompanyModalComponent} from "../add-company-modal/add-company-modal.component";
+import {LocalStorageService} from "../../services/local-storage.service";
 
 @Component({
     selector: "app-create-company",
@@ -10,17 +10,29 @@ import {AddCompanyModalComponent} from "../add-company-modal/add-company-modal.c
     styleUrls: ["./create-company.component.scss"],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateCompanyComponent implements OnInit {
+export class CreateCompanyComponent implements OnInit, OnChanges {
 
     name: string = "";
 
+    @Input() companyList: Company[];
+    @Output() createCompany: EventEmitter<Company> = new EventEmitter();
+    @Output() getCompanies: EventEmitter<void> = new EventEmitter();
+
     constructor(
-        private companyService: CompanyService,
-        public dialog: MatDialog
-    ) { }
+        public dialog: MatDialog,
+        private localService: LocalStorageService,
+    ) { 
+    }
 
     ngOnInit(): void {
-        this.companyService.getCompanies().subscribe((data) => console.log("compdata: ", data));
+        this.getCompanies.emit();
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if(this.localService.getData("companiesList")) {
+            this.companyList = JSON.parse(this.localService.getData("companiesList"));
+        }
+        console.log(this.companyList);
     }
 
     onAddCompany() {
@@ -32,9 +44,7 @@ export class CreateCompanyComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.companyService.createCompany({name: result} as Company).subscribe(data => {
-                    this.companyService.getCompanies().subscribe((compData) => console.log("compdata: ", compData));
-                });
+                this.createCompany.emit({name: result} as Company);
             }
         });
     }

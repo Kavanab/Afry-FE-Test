@@ -1,8 +1,9 @@
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Observable, of} from "rxjs";
-import {catchError, map} from "rxjs/operators";
+import {catchError, map, tap} from "rxjs/operators";
 import {Company} from "../model/company";
+import {LocalStorageService} from "./local-storage.service";
 import {SnackbarService} from "./snackbar.service";
 
 @Injectable({
@@ -18,6 +19,7 @@ export class CompanyService {
     constructor(
         private http: HttpClient,
         private snackbar: SnackbarService,
+        private localService: LocalStorageService,
     ) {
     }
 
@@ -27,6 +29,11 @@ export class CompanyService {
 
     getCompanies(): Observable<Company[]> {
         return this.http.get<Company[]>(this.companiesUrl).pipe(
+            tap(data => {
+                if (!this.localService.getData("companiesList")) {
+                    this.localService.saveData("companiesList", JSON.stringify(data));
+                }
+            }),
             catchError(this.handleError<Company[]>("getCompanies", [])),
         );
     }
@@ -44,6 +51,9 @@ export class CompanyService {
         return this.http.post<Company>(this.companiesUrl, company, this.httpOptions).pipe(
             map(data => {
                 this.snackbar.success(`Created company ${data.name}`);
+                const savedData: Company[] = JSON.parse(this.localService.getData("companiesList"));
+                savedData.push(data);
+                this.localService.saveData("companiesList", JSON.stringify(savedData));
                 return data;
             }),
             catchError(this.handleError<Company>("addCompany")),

@@ -2,8 +2,9 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Observable, of} from "rxjs";
 import {Employee} from "../model/employee";
-import {catchError, map} from "rxjs/operators";
+import {catchError, map, tap} from "rxjs/operators";
 import {SnackbarService} from "./snackbar.service";
+import {LocalStorageService} from "./local-storage.service";
 
 @Injectable({providedIn: "root"})
 export class EmployeeService {
@@ -15,6 +16,7 @@ export class EmployeeService {
     constructor(
         private http: HttpClient,
         private snackbar: SnackbarService,
+        private localService: LocalStorageService,
     ) {
     }
 
@@ -24,6 +26,11 @@ export class EmployeeService {
 
     getEmployees(): Observable<Employee[]> {
         return this.http.get<Employee[]>(this.employeesUrl).pipe(
+            tap(data => {
+                if (!this.localService.getData("employeeList")) {
+                    this.localService.saveData("employeeList", JSON.stringify(data));
+                }
+            }),
             catchError(this.handleError<Employee[]>("getEmployees", [])),
         );
     }
@@ -40,7 +47,11 @@ export class EmployeeService {
     createEmployee(employee: Employee): Observable<Employee> {
         return this.http.post<Employee>(this.employeesUrl, employee, this.httpOptions).pipe(
             map(data => {
-                this.snackbar.success(`Created employee ${data.firstName} ${data.lastName}`);
+                const name = data.lastName ? `${data.firstName} ${data.lastName}` : `${data.firstName}`;
+                this.snackbar.success(`Created employee ${name}`);
+                const savedData: Employee[] = JSON.parse(this.localService.getData("employeeList"));
+                savedData.push(data);
+                this.localService.saveData("employeeList", JSON.stringify(savedData));
                 return data;
             }),
             catchError(this.handleError<Employee>("addEmployee")),
