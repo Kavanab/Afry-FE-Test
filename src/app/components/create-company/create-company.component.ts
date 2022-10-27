@@ -16,7 +16,7 @@ export class CreateCompanyComponent implements OnInit {
 
     constructor(
         private companyService: CompanyService,
-        public dialog: MatDialog
+        public dialog: MatDialog,
     ) { }
 
     ngOnInit(): void {

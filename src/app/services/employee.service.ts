@@ -40,7 +40,8 @@ export class EmployeeService {
     createEmployee(employee: Employee): Observable<Employee> {
         return this.http.post<Employee>(this.employeesUrl, employee, this.httpOptions).pipe(
             map(data => {
-                this.snackbar.success(`Created employee ${data.firstName} ${data.lastName}`);
+                const name = data.lastName ? `${data.firstName} ${data.lastName}` : `${data.firstName}`;
+                this.snackbar.success(`Created employee ${name}`);
                 return data;
             }),
             catchError(this.handleError<Employee>("addEmployee")),

@@ -13,12 +13,18 @@ import {DataService} from "./services/data.service";
 import {AngularMaterialModule} from "./material.module";
 import {FormsModule} from "@angular/forms";
 import {AddCompanyModalComponent} from "./components/add-company-modal/add-company-modal.component";
+import {StoreModule} from "@ngrx/store";
+import {EmployeeReducer} from "./store/employee/employee.reducer";
+import {EmployeeEffects} from "./store/employee/employee.effects";
+import {CreateEmployeeContainerComponent} from "./containers/employee/create-employee-container.component";
+import {EffectsModule} from "@ngrx/effects";
 
 @NgModule({
     declarations: [
         AppComponent,
         CreateCompanyComponent,
         CreateEmployeeComponent,
+        CreateEmployeeContainerComponent,
         HeaderComponent,
         AddCompanyModalComponent,
     ],
@@ -36,6 +42,12 @@ import {AddCompanyModalComponent} from "./components/add-company-modal/add-compa
         HttpClientInMemoryWebApiModule.forRoot(
             DataService, { dataEncapsulation: false },
         ),
+        StoreModule.forRoot({
+            employees: EmployeeReducer,
+        }),
+        EffectsModule.forRoot([
+            EmployeeEffects,
+        ]),
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     providers: [],
