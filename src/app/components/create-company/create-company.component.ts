@@ -1,7 +1,8 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from "@angular/core";
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from "@angular/core";
 import {Company} from "../../model/company";
 import {MatDialog} from "@angular/material/dialog";
 import {AddCompanyModalComponent} from "../add-company-modal/add-company-modal.component";
+import {LocalStorageService} from "../../services/local-storage.service";
 
 @Component({
     selector: "app-create-company",
@@ -9,18 +10,28 @@ import {AddCompanyModalComponent} from "../add-company-modal/add-company-modal.c
     styleUrls: ["./create-company.component.scss"],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateCompanyComponent implements OnChanges {
+export class CreateCompanyComponent implements OnInit, OnChanges {
 
     name: string = "";
 
     @Input() companyList: Company[];
     @Output() createCompany: EventEmitter<Company> = new EventEmitter();
+    @Output() getCompanies: EventEmitter<void> = new EventEmitter();
 
     constructor(
         public dialog: MatDialog,
-    ) { }
+        private localService: LocalStorageService,
+    ) { 
+    }
+
+    ngOnInit(): void {
+        this.getCompanies.emit();
+    }
 
     ngOnChanges(changes: SimpleChanges): void {
+        if(this.localService.getData("companiesList")) {
+            this.companyList = JSON.parse(this.localService.getData("companiesList"));
+        }
         console.log(this.companyList);
     }
 

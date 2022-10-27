@@ -3,9 +3,20 @@ import {Action} from "@ngrx/store";
 import {Employee} from "../../model/employee";
 
 export enum EmployeeActionType {
+    GetEmployees = "[Employee] Get Employees",
+    GetEmployeesSuccess = "[Employee] Get Employees success",
+
     AddEmployee = "[Employee] Add Employee",
     AddEmployeeSuccess = "[Employee] Add Employee success",
     AddEmployeeFailure = "[Employee] Add Employee failure",
+}
+export class GetEmployees implements Action {
+    readonly type = EmployeeActionType.GetEmployees;
+}
+
+export class GetEmployeesSuccess implements Action {
+    readonly type = EmployeeActionType.GetEmployeesSuccess;
+    constructor(public employees: Employee[]) {}
 }
 
 export class AddEmployee implements Action {
@@ -23,4 +34,4 @@ export class AddEmployeeFailure implements Action {
     constructor(public error: HttpErrorResponse) {}
 }
 
-export type EmployeeActions = AddEmployee | AddEmployeeSuccess | AddEmployeeFailure;
+export type EmployeeActions = GetEmployees | GetEmployeesSuccess | AddEmployee | AddEmployeeSuccess | AddEmployeeFailure;

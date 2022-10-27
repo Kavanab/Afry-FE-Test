@@ -3,8 +3,8 @@ import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {AppState} from "../../store/state.model";
 import {Employee} from "../../model/employee";
-import {AddEmployee} from "src/app/store/employee/employee.actions";
-import {Company} from "src/app/model/company";
+import {AddEmployee, GetEmployees} from "../../store/employee/employee.actions";
+import {Company} from "../../model/company";
 
 @Component({
     selector: "app-create-employee-container",
@@ -20,6 +20,10 @@ export class CreateEmployeeContainerComponent implements OnInit {
     ngOnInit(): void {
         this.employeeList$ = this.store.select((store) => store.employees);
         this.companyList$ = this.store.select((store) => store.companies);
+    }
+
+    getEmployees() {
+        this.store.dispatch(new GetEmployees());
     }
 
     createEmployee(emp) {

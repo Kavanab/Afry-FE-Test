@@ -3,7 +3,7 @@ import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {AppState} from "../../store/state.model";
 import {Company} from "../../model/company";
-import {AddCompany} from "src/app/store/company/company.actions";
+import {AddCompany, GetCompanies} from "../../store/company/company.actions";
 
 @Component({
     selector: "app-create-company-container",
@@ -19,6 +19,10 @@ export class CreateCompanyContainerComponent implements OnInit {
         this.companyList$ = this.store.select((store) => store.companies);
     }
 
+    getCompanies() {
+        this.store.dispatch(new GetCompanies());
+    }
+    
     createCompany(emp) {
         this.store.dispatch(new AddCompany(emp));
     }

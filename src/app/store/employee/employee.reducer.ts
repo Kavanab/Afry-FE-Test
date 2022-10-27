@@ -8,6 +8,8 @@ export function EmployeeReducer(
     action: EmployeeActions,
 ) {
     switch (action.type) {
+        case EmployeeActionType.GetEmployeesSuccess:
+            return [...state, ...action.employees];
         case EmployeeActionType.AddEmployeeSuccess:
             return [...state, action.employee];
         default:

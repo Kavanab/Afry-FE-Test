@@ -14,6 +14,17 @@ export class EmployeeEffects {
     constructor(private actions$: Actions, private employeeService: EmployeeService) {}
 
     @Effect()
+    getEmployees$: Observable<Action> = this.actions$.pipe(
+        ofType(EmployeeActions.EmployeeActionType.GetEmployees),
+        mergeMap((action: EmployeeActions.GetEmployees) => {
+            return this.employeeService.getEmployees().pipe(
+                map((data: Employee[]) => new EmployeeActions.GetEmployeesSuccess(data)),
+                catchError((error: HttpErrorResponse) => of(new EmployeeActions.AddEmployeeFailure(error))),
+            );
+        }),
+    ); 
+
+    @Effect()
     addEmployee$: Observable<Action> = this.actions$.pipe(
         ofType(EmployeeActions.EmployeeActionType.AddEmployee),
         mergeMap((action: EmployeeActions.AddEmployee) => {
