@@ -16,7 +16,7 @@ export class DataService implements InMemoryDbService {
                     "id": 1,
                     "firstName": "Robert",
                     "lastName": "Downey",
-                    "companyId": 1,
+                    "company": 1,
                 },
             ],
             companies: [
