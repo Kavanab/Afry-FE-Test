@@ -15,7 +15,16 @@
                     <input matInput formControlName="lastName" placeholder="Please enter your last name">
                 </mat-form-field>
                 <mat-form-field class="example-full-width" appearance="outline">
-                    <input matInput formControlName="companyName" placeholder="Please enter your company name">
+                    <input type="text" 
+                           matInput 
+                           formControlName="company" 
+                           placeholder="Please enter your company name"
+                           [matAutocomplete]="auto">
+                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
+                        <mat-option *ngFor="let option of filteredCompanies | async" [value]="option">
+                            {{option.name}}
+                        </mat-option>
+                    </mat-autocomplete>
                 </mat-form-field>
                 <div class="button-wrapper">
                     <button mat-raised-button color="primary" (click)="onCreateEmployee()" [disabled]="!createEmployeeForm.valid">Create employee</button>
