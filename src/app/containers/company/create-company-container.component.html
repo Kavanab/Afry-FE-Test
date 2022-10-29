@@ -1,4 +1,6 @@
 <app-create-company [companyList]="companyList$ | async"
+                    [employeeList]="employeeList$ |async"
                     (createCompany)="createCompany($event)"
+                    (deleteEmployeeFromCompany)="deleteEmployeeFromCompany($event)"
                     (getCompanies)="getCompanies()">
 </app-create-company>

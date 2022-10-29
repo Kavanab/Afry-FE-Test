@@ -60,7 +60,7 @@ export class CreateEmployeeComponent implements OnInit, OnChanges {
             const empData: Employee = {
                 firstName: this.createEmployeeForm.value.firstName,
                 lastName: this.createEmployeeForm.value.lastName,
-                company: this.createEmployeeForm.value.company.id,
+                company: this.createEmployeeForm.value.company?.id,
             };
             this.createEmployee.emit(empData);
             this.createEmployeeForm.reset();

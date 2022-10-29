@@ -9,6 +9,9 @@ export enum EmployeeActionType {
     AddEmployee = "[Employee] Add Employee",
     AddEmployeeSuccess = "[Employee] Add Employee success",
     AddEmployeeFailure = "[Employee] Add Employee failure",
+
+    DeleteEmployee = "[Employee] Delete Employee",
+    DeleteEmployeeSuccess = "[Employee] Delete Employee success",
 }
 export class GetEmployees implements Action {
     readonly type = EmployeeActionType.GetEmployees;
@@ -34,4 +37,21 @@ export class AddEmployeeFailure implements Action {
     constructor(public error: HttpErrorResponse) {}
 }
 
-export type EmployeeActions = GetEmployees | GetEmployeesSuccess | AddEmployee | AddEmployeeSuccess | AddEmployeeFailure;
+export class DeleteEmployee implements Action {
+    readonly type = EmployeeActionType.DeleteEmployee;
+    constructor(public employee: Employee) {}
+}
+
+export class DeleteEmployeeSuccess implements Action {
+    readonly type = EmployeeActionType.DeleteEmployeeSuccess;
+    constructor(public employee: Employee) {}
+}
+
+export type EmployeeActions = 
+    GetEmployees | 
+    GetEmployeesSuccess | 
+    AddEmployee | 
+    AddEmployeeSuccess | 
+    AddEmployeeFailure |
+    DeleteEmployee |
+    DeleteEmployeeSuccess;

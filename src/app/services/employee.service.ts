@@ -58,6 +58,16 @@ export class EmployeeService {
         );
     }
 
+    deleteEmployeeFromCompany(employee: Employee): Observable<Employee> {
+        const name = employee.lastName ? `${employee.firstName} ${employee.lastName}` : `${employee.firstName}`;
+        this.snackbar.success(`Deleted employee ${name} successfully`);
+        let savedData: Employee[] = JSON.parse(this.localService.getData("employeeList"));
+        Object.assign(savedData, savedData.map(el => el.id === employee.id ? employee : el));
+            
+        this.localService.saveData("employeeList", JSON.stringify(savedData));
+        return of(employee);
+    }
+
     private handleError<T>(operation = "operation", result?: T) {
         return (error: any): Observable<T> => {
             console.log(`${operation} failed: ${error}`);
