@@ -29,6 +29,7 @@ export class CompanyService {
                 if (!this.localService.getData("companiesList")) {
                     this.localService.saveData("companiesList", JSON.stringify(data));
                 }
+                return of(data);
             }),
             catchError(this.handleError<Company[]>("getCompanies", [])),
         );
