@@ -34,4 +34,17 @@ export class EmployeeEffects {
             );
         }),
     );
+
+    @Effect()
+    deleteEmployee$: Observable<Action> = this.actions$.pipe(
+        ofType(EmployeeActions.EmployeeActionType.DeleteEmployee),
+        mergeMap((action: EmployeeActions.DeleteEmployee) => {
+            console.log(action.employee);
+            
+            return this.employeeService.deleteEmployeeFromCompany(action.employee).pipe(
+                map((data: Employee) => new EmployeeActions.DeleteEmployeeSuccess(data)),
+                catchError((error: HttpErrorResponse) => of(new EmployeeActions.AddEmployeeFailure(error))),
+            );
+        }),
+    );
 }

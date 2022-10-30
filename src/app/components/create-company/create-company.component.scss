@@ -1,17 +1,68 @@
 .page-title {
     margin-top: 5%;
 }
+
 .mat-card-title {
     font-family: serif;
     margin: 2rem;
     align-self: flex-start;
 }
+
 .create-company-container {
     display: flex;
     flex-direction: column;
 }
+
 .button-wrapper {
     justify-content: flex-end;
     display: flex;
     margin-right: 5rem;
+}
+
+.mat-table {
+    width: 70%;
+    margin-top: 4rem;
+    background: none;
+    border: 1px solid #c2185b;
+}
+.filter-by-company {
+    width: 70%;
+    margin-top: 4rem;
+    display: block;
+}
+.mat-icon {
+    cursor: pointer;
+}
+
+::ng-deep .mat-select-panel {
+    background: #c2185b ;
+}
+
+.table-filter-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mat-column-action {
+    width: 10%;
+}
+
+.select-label {
+    font-size: large;
+}
+
+::ng-deep .mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple){
+    background: #ffff !important;
+}
+
+th {
+    font-size: medium;
+}
+
+::ng-deep .mat-select-panel {
+    position: absolute;
+    left: 1rem;
+    top: 1.5rem;
+    min-width: 100% !important;
 }

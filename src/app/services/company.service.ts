@@ -23,10 +23,6 @@ export class CompanyService {
     ) {
     }
 
-    genId(companies: Company[]): number {
-        return companies.length > 0 ? Math.max(...companies.map(comp => comp.id)) + 1 : 11;
-    }
-
     getCompanies(): Observable<Company[]> {
         return this.http.get<Company[]>(this.companiesUrl).pipe(
             tap(data => {
@@ -48,16 +44,12 @@ export class CompanyService {
     }
 
     createCompany(company: Company): Observable<Company> {
-        return this.http.post<Company>(this.companiesUrl, company, this.httpOptions).pipe(
-            map(data => {
-                this.snackbar.success(`Created company ${data.name}`);
-                const savedData: Company[] = JSON.parse(this.localService.getData("companiesList"));
-                savedData.push(data);
-                this.localService.saveData("companiesList", JSON.stringify(savedData));
-                return data;
-            }),
-            catchError(this.handleError<Company>("addCompany")),
-        );
+        this.snackbar.success(`Created company ${company.name}`);
+        const savedData: Company[] = JSON.parse(this.localService.getData("companiesList"));
+        savedData.push(company);
+        this.localService.saveData("companiesList", JSON.stringify(savedData));
+        return of(company);
+           
     }
 
     private handleError<T>(operation = "operation", result?: T) {
