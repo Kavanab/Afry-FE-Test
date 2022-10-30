@@ -23,7 +23,10 @@ export class CreateCompanyComponent implements OnInit, OnChanges {
 
     columnDefs;
     displayedColumns;
-    
+    dataSource;
+
+    selectedCompany: any = "All";
+
     constructor(
         public dialog: MatDialog,
         private localService: LocalStorageService,
@@ -42,6 +45,15 @@ export class CreateCompanyComponent implements OnInit, OnChanges {
         }
         if(this.localService.getData("employeeList")) {
             this.employeeList = JSON.parse(this.localService.getData("employeeList")).filter(emp => emp.company);
+            this.dataSource = this.employeeList;
+        }
+    }
+
+    filterEmployees(company) {
+        if(company !== "All"){
+            this.dataSource = this.employeeList.filter(emp => emp.company === company.id);
+        } else {
+            this.dataSource = this.employeeList;
         }
     }
 
@@ -54,7 +66,7 @@ export class CreateCompanyComponent implements OnInit, OnChanges {
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.createCompany.emit({name: result} as Company);
+                this.createCompany.emit({id: this.companyList.length + 1, name: result} as Company);
             }
         });
     }

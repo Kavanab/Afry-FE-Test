@@ -20,10 +20,6 @@ export class EmployeeService {
     ) {
     }
 
-    genId(employees: Employee[]): number {
-        return employees.length > 0 ? Math.max(...employees.map(emp => emp.id)) + 1 : 11;
-    }
-
     getEmployees(): Observable<Employee[]> {
         return this.http.get<Employee[]>(this.employeesUrl).pipe(
             tap(data => {
@@ -45,17 +41,12 @@ export class EmployeeService {
     }
 
     createEmployee(employee: Employee): Observable<Employee> {
-        return this.http.post<Employee>(this.employeesUrl, employee, this.httpOptions).pipe(
-            map(data => {
-                const name = data.lastName ? `${data.firstName} ${data.lastName}` : `${data.firstName}`;
-                this.snackbar.success(`Created employee ${name}`);
-                const savedData: Employee[] = JSON.parse(this.localService.getData("employeeList"));
-                savedData.push(data);
-                this.localService.saveData("employeeList", JSON.stringify(savedData));
-                return data;
-            }),
-            catchError(this.handleError<Employee>("addEmployee")),
-        );
+        const name = employee.lastName ? `${employee.firstName} ${employee.lastName}` : `${employee.firstName}`;
+        this.snackbar.success(`Created employee ${name}`);
+        const savedData: Employee[] = JSON.parse(this.localService.getData("employeeList"));
+        savedData.push(employee);
+        this.localService.saveData("employeeList", JSON.stringify(savedData));
+        return of(employee);
     }
 
     deleteEmployeeFromCompany(employee: Employee): Observable<Employee> {

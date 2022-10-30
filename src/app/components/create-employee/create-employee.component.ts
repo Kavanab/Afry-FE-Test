@@ -51,13 +51,12 @@ export class CreateEmployeeComponent implements OnInit, OnChanges {
         if(this.localService.getData("companiesList")) {
             this.companyList = JSON.parse(this.localService.getData("companiesList"));
         }
-        console.log(this.employeeList);
-        
     }
 
     onCreateEmployee() {
         if(this.createEmployeeForm.valid) {
             const empData: Employee = {
+                id: this.employeeList.length + 1,
                 firstName: this.createEmployeeForm.value.firstName,
                 lastName: this.createEmployeeForm.value.lastName,
                 company: this.createEmployeeForm.value.company?.id,

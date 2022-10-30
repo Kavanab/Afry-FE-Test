@@ -11,6 +11,7 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatTableModule} from "@angular/material/table";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
     imports: [
@@ -25,6 +26,7 @@ import {MatTableModule} from "@angular/material/table";
         MatDialogModule,
         MatAutocompleteModule,
         MatTableModule,
+        MatSelectModule,
     ],
     exports: [
         MatToolbarModule,
@@ -38,6 +40,7 @@ import {MatTableModule} from "@angular/material/table";
         MatDialogModule,
         MatAutocompleteModule,
         MatTableModule,
+        MatSelectModule,
     ],
 })
 export class AngularMaterialModule { }
