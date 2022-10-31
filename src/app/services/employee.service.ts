@@ -26,6 +26,7 @@ export class EmployeeService {
                 if (!this.localService.getData("employeeList")) {
                     this.localService.saveData("employeeList", JSON.stringify(data));
                 }
+                return of(data);
             }),
             catchError(this.handleError<Employee[]>("getEmployees", [])),
         );

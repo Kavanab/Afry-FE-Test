@@ -1,16 +1,64 @@
-import {TestBed} from "@angular/core/testing";
-
+import {TestBed, inject, waitForAsync} from "@angular/core/testing";
+import {of} from "rxjs";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {CompanyService} from "./company.service";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 describe("CompanyService", () => {
-    let service: CompanyService;
+    let companyService;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({});
-        service = TestBed.inject(CompanyService);
+        TestBed.configureTestingModule({
+            imports: [HttpClientTestingModule, MatSnackBarModule, BrowserAnimationsModule],
+            providers: [CompanyService],
+        });
+       
     });
 
-    it("should be created", () => {
-        expect(service).toBeTruthy();
+    beforeEach(inject([CompanyService], (_service: CompanyService) => {
+        companyService = _service;
+    }));
+
+    describe("getCompanies()", () => {
+        it("should get list of companies", waitForAsync(() => {
+            const expectedUrl = "api/companies";
+            const expectedCompanies = [{id: 1, name: "test"}];
+            spyOn(companyService.http, "get").and.returnValue(of(expectedCompanies));
+
+            companyService.getCompanies().subscribe((result) => {
+                expect(result).toEqual(expectedCompanies);
+            });
+
+            expect(companyService.http.get).toHaveBeenCalledOnceWith(expectedUrl);
+        }));
+    });
+
+    describe("createCompany()", () => {
+        it("should create a company and add to the list of companies", waitForAsync(() => {
+            
+            const expectedCompany = {id: 1, name: "test"};
+            spyOn(companyService.snackbar, "success").and.callThrough();
+
+            companyService.createCompany({id: 1, name: "test"}).subscribe((result) => {
+                expect(result).toEqual(expectedCompany);
+            });
+
+            expect(companyService.snackbar.success).toHaveBeenCalledWith("Created company test");
+        }));
+    });
+
+    describe("getCompanyById()", () => {
+        it("should get details of company", waitForAsync(() => {
+            const expectedUrl = "api/companies/1";
+            const expectedCompany = {id: 1, name: "test"};
+            spyOn(companyService.http, "get").and.returnValue(of(expectedCompany));
+
+            companyService.getCompanyById(1).subscribe((result) => {
+                expect(result).toEqual(expectedCompany);
+            });
+
+            expect(companyService.http.get).toHaveBeenCalledOnceWith(expectedUrl);
+        }));
     });
 });
