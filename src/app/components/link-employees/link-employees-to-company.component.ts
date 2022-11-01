@@ -19,7 +19,6 @@ export class LinkEmployeesToCompanyComponent implements OnInit, OnChanges {
     columnDefs;
     displayedColumns;
     dataSource;
-    linkedCompany;
 
     constructor(
         private localService: LocalStorageService,
@@ -41,11 +40,11 @@ export class LinkEmployeesToCompanyComponent implements OnInit, OnChanges {
     }
 
     linkCompanyToEmployee(employee) {
-        this.updateCompanyToEmployee.emit({employee: employee, company: this.linkedCompany});
+        this.updateCompanyToEmployee.emit({employee: employee, company: employee.company});
     }
 
-    removeSelectedCompany() {
-        this.linkedCompany = "";
+    removeSelectedCompany(employee) {
+       employee.company = "";
     }
 
     displayCompanyName(companyId: number) {
@@ -67,7 +66,7 @@ export class LinkEmployeesToCompanyComponent implements OnInit, OnChanges {
             {
                 columnDef: "lastName",
                 header: "Last name",
-                cell: (element: Employee) => `${element.lastName}`,
+                cell: (element: Employee) => element.lastName ? `${element.lastName}` : "--",
             },
             {
                 columnDef: "action",

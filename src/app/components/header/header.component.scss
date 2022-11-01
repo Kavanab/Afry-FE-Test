@@ -13,3 +13,12 @@
 .mat-icon-button {
     margin-left: 3rem !important;
 }
+
+::ng-deep .mat-menu-content {
+    background: #c2185b;
+}
+
+.active-link {
+    background: #ffff;
+    color: #c2185b;
+}

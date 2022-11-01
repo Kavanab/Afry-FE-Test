@@ -14,14 +14,12 @@
 }
 
 .mat-table {
-    width: 70%;
-    margin-top: 4rem;
+    width: 100%;
     background: none;
-    border: 1px solid #c2185b;
 }
 .filter-by-company {
     width: 70%;
-    margin-top: 4rem;
+    margin-top: 2rem;
     display: block;
 }
 
@@ -56,4 +54,19 @@ th {
     left: 1rem;
     top: 1.5rem;
     min-width: 100% !important;
+}
+
+.table-container {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.mat-header-row {
+    height: 3rem;
+    background: #ffff;
+}
+.mat-header-cell {
+    color: #c2185b;
 }
