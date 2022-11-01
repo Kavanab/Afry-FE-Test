@@ -1,5 +1,6 @@
 import {HttpErrorResponse} from "@angular/common/http";
 import {Action} from "@ngrx/store";
+import {Company} from "src/app/model/company";
 import {Employee} from "../../model/employee";
 
 export enum EmployeeActionType {
@@ -12,7 +13,11 @@ export enum EmployeeActionType {
 
     DeleteEmployee = "[Employee] Delete Employee",
     DeleteEmployeeSuccess = "[Employee] Delete Employee success",
+
+    UpdateEmployee = "[Employee] Update Employee",
+    UpdateEmployeeSuccess = "[Employee] Update Employee success",
 }
+
 export class GetEmployees implements Action {
     readonly type = EmployeeActionType.GetEmployees;
 }
@@ -47,6 +52,16 @@ export class DeleteEmployeeSuccess implements Action {
     constructor(public employee: Employee) {}
 }
 
+export class UpdateEmployee implements Action {
+    readonly type = EmployeeActionType.UpdateEmployee;
+    constructor(public employee: Employee, public company: Company) {}
+}
+
+export class UpdateEmployeeSuccess implements Action {
+    readonly type = EmployeeActionType.UpdateEmployeeSuccess;
+    constructor(public employee: Employee) {}
+}
+
 export type EmployeeActions = 
     GetEmployees | 
     GetEmployeesSuccess | 
@@ -54,4 +69,6 @@ export type EmployeeActions =
     AddEmployeeSuccess | 
     AddEmployeeFailure |
     DeleteEmployee |
-    DeleteEmployeeSuccess;
+    DeleteEmployeeSuccess |
+    UpdateEmployee |
+    UpdateEmployeeSuccess;

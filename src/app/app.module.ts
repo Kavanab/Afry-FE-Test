@@ -21,6 +21,8 @@ import {EffectsModule} from "@ngrx/effects";
 import {CompanyEffects} from "./store/company/company.effects";
 import {CompanyReducer} from "./store/company/company.reducer";
 import {CreateCompanyContainerComponent} from "./containers/company/create-company-container.component";
+import { LinkEmployeesToCompanyComponent } from './components/link-employees/link-employees-to-company.component';
+import { LinkEmployeesToCompanyContainerComponent } from './containers/link-employees/link-employees-to-company-container.component';
 
 @NgModule({
     declarations: [
@@ -31,6 +33,8 @@ import {CreateCompanyContainerComponent} from "./containers/company/create-compa
         HeaderComponent,
         AddCompanyModalComponent,
         CreateCompanyContainerComponent,
+        LinkEmployeesToCompanyComponent,
+        LinkEmployeesToCompanyContainerComponent,
     ],
     imports: [
         BrowserModule,

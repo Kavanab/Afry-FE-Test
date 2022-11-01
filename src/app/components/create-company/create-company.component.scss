@@ -2,12 +2,6 @@
     margin-top: 5%;
 }
 
-.mat-card-title {
-    font-family: serif;
-    margin: 2rem;
-    align-self: flex-start;
-}
-
 .create-company-container {
     display: flex;
     flex-direction: column;
@@ -29,9 +23,6 @@
     width: 70%;
     margin-top: 4rem;
     display: block;
-}
-.mat-icon {
-    cursor: pointer;
 }
 
 ::ng-deep .mat-select-panel {

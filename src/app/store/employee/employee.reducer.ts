@@ -14,6 +14,8 @@ export function EmployeeReducer(
             return [...state, action.employee];
         case EmployeeActionType.DeleteEmployeeSuccess:
             return [...state, action.employee];
+        case EmployeeActionType.UpdateEmployeeSuccess:
+            return [...state, action.employee];
         default:
             return state;
     }
