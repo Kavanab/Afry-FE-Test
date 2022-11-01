@@ -14,7 +14,7 @@ export class LinkEmployeesToCompanyComponent implements OnInit, OnChanges {
     @Input() companyList: Company[];
     @Input() employeeList: Employee[];
 
-    @Output() updateCompanyToEmployee : EventEmitter<{employee, company}> = new EventEmitter();
+    @Output() updateCompanyToEmployee: EventEmitter<{employee, company}> = new EventEmitter();
 
     columnDefs;
     displayedColumns;
@@ -41,7 +41,7 @@ export class LinkEmployeesToCompanyComponent implements OnInit, OnChanges {
     }
 
     linkCompanyToEmployee(employee) {
-        this.updateCompanyToEmployee.emit({employee: employee, company: this.linkedCompany})
+        this.updateCompanyToEmployee.emit({employee: employee, company: this.linkedCompany});
     }
 
     removeSelectedCompany() {

@@ -1,23 +1,50 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {fakeAsync, TestBed, waitForAsync} from "@angular/core/testing";
+import {LinkEmployeesToCompanyComponent} from "./link-employees-to-company.component";
 
-import { LinkEmployeesToCompanyComponent } from './link-employees-to-company.component';
+describe("LinkEmployeesToCompanyComponent", () => {
+    let linkEmployeesToCompanyComponent;
 
-describe('LinkEmployeesToCompanyComponent', () => {
-  let component: LinkEmployeesToCompanyComponent;
-  let fixture: ComponentFixture<LinkEmployeesToCompanyComponent>;
+    beforeEach(async () => {
+        TestBed.configureTestingModule({
+            declarations: [LinkEmployeesToCompanyComponent],
+            imports: [],
+        }).compileComponents();
+    
+        const fixture = TestBed.createComponent(LinkEmployeesToCompanyComponent);
+        linkEmployeesToCompanyComponent = fixture.componentInstance;
+    });
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ LinkEmployeesToCompanyComponent ]
-    })
-    .compileComponents();
+    describe("ngOnChanges", () => {
+        it("should set employeelist", fakeAsync(() => {
+            const employeeList = JSON.stringify([{id: 1, firstName: "test", lastName: "last"}]);
+            spyOn(linkEmployeesToCompanyComponent.localService, "getData").and.returnValue(employeeList);
+            linkEmployeesToCompanyComponent.ngOnChanges();
+            expect(linkEmployeesToCompanyComponent.employeeList).toEqual(JSON.parse(employeeList));
+        }));
 
-    fixture = TestBed.createComponent(LinkEmployeesToCompanyComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+        it("should set companyList", fakeAsync(() => {
+            const companyList = JSON.stringify([{id: 1, name: "companytest"}]);
+            spyOn(linkEmployeesToCompanyComponent.localService, "getData").and.returnValue(companyList);
+            linkEmployeesToCompanyComponent.ngOnChanges();
+            expect(linkEmployeesToCompanyComponent.companyList).toEqual(JSON.parse(companyList));
+        }));
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    describe("linkCompanyToEmployee", () => {
+        it("should emit updateCompanyToEmployee event", waitForAsync(() => {
+            spyOn(linkEmployeesToCompanyComponent.updateCompanyToEmployee, "emit");
+            const employee = {
+                id: 1, 
+                firstName: "test",
+                lastName: "",
+            };
+            const company = {
+                id: 1,
+                name: "abc",
+            };
+            linkEmployeesToCompanyComponent.linkedCompany = company;
+            linkEmployeesToCompanyComponent.linkCompanyToEmployee(employee);
+            expect(linkEmployeesToCompanyComponent.updateCompanyToEmployee.emit).toHaveBeenCalledWith({employee, company});
+        }));
+    });
 });

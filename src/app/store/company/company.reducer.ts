@@ -10,6 +10,8 @@ export function CompanyReducer(
     switch (action.type) {
         case CompanyActionType.GetCompaniesSuccess:
             return [...state, ...action.companies];
+        case CompanyActionType.DeleteEmployeeSuccess:
+            return [...state, action.employee];
         case CompanyActionType.AddCompanySuccess:
             return [...state, action.company];
         default:

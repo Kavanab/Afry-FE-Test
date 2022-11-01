@@ -3,7 +3,7 @@ import {CreateCompanyContainerComponent} from "./create-company-container.compon
 import {MockStore, provideMockStore} from "@ngrx/store/testing";
 import {AppState} from "../../store/state.model";
 import {AddCompany} from "../../store/company/company.actions";
-import {DeleteEmployee} from "../../store/employee/employee.actions";
+import {DeleteEmployee} from "../../store/company/company.actions";
 
 describe("CreateCompanyContainerComponent", () => {
     let createCompanyContainerComponent;

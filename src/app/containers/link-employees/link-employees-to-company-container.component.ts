@@ -24,9 +24,6 @@ export class LinkEmployeesToCompanyContainerComponent implements OnInit {
     }
 
     updateCompanyToEmployee(data) {
-        if(data) {
-            this.store.dispatch(new UpdateEmployee(data.employee, data.company));
-        }
-        
+        this.store.dispatch(new UpdateEmployee(data.employee, data.company));
     }
 }

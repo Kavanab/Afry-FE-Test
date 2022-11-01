@@ -3,6 +3,7 @@ import {Injectable} from "@angular/core";
 import {Observable, of} from "rxjs";
 import {catchError, map, tap} from "rxjs/operators";
 import {Company} from "../model/company";
+import {Employee} from "../model/employee";
 import {LocalStorageService} from "./local-storage.service";
 import {SnackbarService} from "./snackbar.service";
 
@@ -50,7 +51,16 @@ export class CompanyService {
         savedData.push(company);
         this.localService.saveData("companiesList", JSON.stringify(savedData));
         return of(company);
-           
+    }
+
+    deleteEmployeeFromCompany(employee: Employee): Observable<Employee> {
+        const name = employee.lastName ? `${employee.firstName} ${employee.lastName}` : `${employee.firstName}`;
+        this.snackbar.success(`Deleted employee ${name} successfully`);
+        let savedData: Employee[] = JSON.parse(this.localService.getData("employeeList"));
+        Object.assign(savedData, savedData.map(el => el.id === employee.id ? employee : el));
+            
+        this.localService.saveData("employeeList", JSON.stringify(savedData));
+        return of(employee);
     }
 
     private handleError<T>(operation = "operation", result?: T) {

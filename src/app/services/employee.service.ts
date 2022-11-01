@@ -51,16 +51,6 @@ export class EmployeeService {
         return of(employee);
     }
 
-    deleteEmployeeFromCompany(employee: Employee): Observable<Employee> {
-        const name = employee.lastName ? `${employee.firstName} ${employee.lastName}` : `${employee.firstName}`;
-        this.snackbar.success(`Deleted employee ${name} successfully`);
-        let savedData: Employee[] = JSON.parse(this.localService.getData("employeeList"));
-        Object.assign(savedData, savedData.map(el => el.id === employee.id ? employee : el));
-            
-        this.localService.saveData("employeeList", JSON.stringify(savedData));
-        return of(employee);
-    }
-
     addCompanyToEmployee(updatedEmployee: Employee, selectedCompany: Company): Observable<Employee> {
         
         const employeeData: Employee = {...updatedEmployee, company: selectedCompany?.id};
