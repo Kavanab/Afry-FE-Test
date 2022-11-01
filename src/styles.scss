@@ -38,8 +38,15 @@ body {
     font-family: serif;
     margin: 2rem;
     align-self: flex-start;
+    font-size: 40px;
 }
 
 .mat-icon {
     cursor: pointer;
+}
+
+.page-title {
+    margin-top: 3%;
+    justify-content: center;
+    display: flex;
 }

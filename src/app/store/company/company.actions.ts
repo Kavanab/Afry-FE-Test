@@ -62,11 +62,11 @@ export class DeleteEmployeeFailure implements Action {
 }
 
 export type CompanyActions = GetCompanies | 
-    GetCompaniesSuccess | 
-    GetCompaniesFailure |
-    AddCompany | 
-    AddCompanySuccess | 
-    AddCompanyFailure |
-    DeleteEmployee |
-    DeleteEmployeeSuccess |
-    DeleteEmployeeFailure;
+GetCompaniesSuccess | 
+GetCompaniesFailure |
+AddCompany | 
+AddCompanySuccess | 
+AddCompanyFailure |
+DeleteEmployee |
+DeleteEmployeeSuccess |
+DeleteEmployeeFailure;

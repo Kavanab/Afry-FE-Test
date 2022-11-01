@@ -73,6 +73,8 @@ export class CreateEmployeeComponent implements OnInit, OnChanges {
     private _filterCompanies(value: string): Company[] {
         const filterValue = value.toLowerCase();
     
-        return this.companyList.filter(option => option.name.toLowerCase().includes(filterValue));
+        const results =  this.companyList.filter(option => option.name.toLowerCase().includes(filterValue));
+
+        return results.length ? results : [{id: 10000, name: "Company doesn't exist. You can create one in View 2"}];
     }
 }

@@ -37,12 +37,12 @@ describe("LinkEmployeesToCompanyComponent", () => {
                 id: 1, 
                 firstName: "test",
                 lastName: "",
+                company: {
+                    id: 1,
+                    name: "abc",
+                },
             };
-            const company = {
-                id: 1,
-                name: "abc",
-            };
-            linkEmployeesToCompanyComponent.linkedCompany = company;
+            const company = {...employee.company};
             linkEmployeesToCompanyComponent.linkCompanyToEmployee(employee);
             expect(linkEmployeesToCompanyComponent.updateCompanyToEmployee.emit).toHaveBeenCalledWith({employee, company});
         }));

@@ -44,7 +44,7 @@ export class LinkEmployeesToCompanyComponent implements OnInit, OnChanges {
     }
 
     removeSelectedCompany(employee) {
-       employee.company = "";
+        employee.company = "";
     }
 
     displayCompanyName(companyId: number) {
@@ -55,22 +55,22 @@ export class LinkEmployeesToCompanyComponent implements OnInit, OnChanges {
         this.columnDefs = [
             {
                 columnDef: "id",
-                header: "Id",
+                header: "Emp.ID",
                 cell: (element: Employee) => `${element.id}`,
             },
             {
                 columnDef: "firstName",
-                header: "First name",
+                header: "First Name",
                 cell: (element: Employee) => `${element.firstName}`,
             },
             {
                 columnDef: "lastName",
-                header: "Last name",
+                header: "Last Name",
                 cell: (element: Employee) => element.lastName ? `${element.lastName}` : "--",
             },
             {
                 columnDef: "action",
-                header: "Actions",
+                header: "Action",
                 cell: (element: Employee) => "",
             },
             {

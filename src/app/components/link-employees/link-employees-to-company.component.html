@@ -1,6 +1,6 @@
 <ng-container> 
     <div class="page-title">
-        <mat-card-title>Link employees to companies</mat-card-title>
+        <mat-card-title>View 3: Unlinked Employees</mat-card-title>
     </div>
     <div class="list-employees-container">
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
@@ -13,7 +13,7 @@
                         <mat-select *ngSwitchCase="'action'" 
                                     class="list-of-companies" 
                                     [(value)]="row.company" 
-                                    placeholder="Link a company to me">
+                                    placeholder="Link employee to company">
                             <mat-option value="">None</mat-option>
                             <mat-option *ngFor="let comp of companyList" [value]="comp">
                                 {{comp.name}}
@@ -33,7 +33,7 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
             <tr class="mat-row" *matNoDataRow>
-                <td class="mat-cell" colspan="4">No employees to link!</td>
+                <td class="mat-cell" colspan="4">No Employees!</td>
             </tr>
         </table>
     </div>
