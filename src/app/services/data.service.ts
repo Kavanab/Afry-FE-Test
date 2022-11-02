@@ -18,11 +18,21 @@ export class DataService implements InMemoryDbService {
                     "lastName": "Downey",
                     "company": 1,
                 },
+                {
+                    "id": 2,
+                    "firstName": "Henry",
+                    "lastName": "Cavill",
+                    "company": 2,
+                },
             ],
             companies: [
                 {
                     "id": 1,
                     "name": "Marvel",
+                },
+                {
+                    "id": 2,
+                    "name": "DC",
                 },
             ],
         };

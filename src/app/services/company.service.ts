@@ -36,15 +36,6 @@ export class CompanyService {
         );
     }
 
-    /** GET company by id. Will 404 if id not found */
-    getCompanyById(id: number): Observable<Company> {
-        const url = `${this.companiesUrl}/${id}`;
-        return this.http.get<Company>(url).pipe(
-            map(data => data),
-            catchError(this.handleError<Company>(`getCompanies id=${id}`)),
-        );
-    }
-
     createCompany(company: Company): Observable<Company> {
         this.snackbar.success(`Created company ${company.name}`);
         const savedData: Company[] = JSON.parse(this.localService.getData("companiesList"));

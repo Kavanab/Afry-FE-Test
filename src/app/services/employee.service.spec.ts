@@ -47,18 +47,4 @@ describe("EmployeeService", () => {
             expect(employeeService.snackbar.success).toHaveBeenCalledWith("Created employee test test");
         }));
     });
-
-    describe("getEmployeeById()", () => {
-        it("should get details of company", waitForAsync(() => {
-            const expectedUrl = "api/employees/1";
-            const expectedCompany = {id: 1, firstName: "test", lastName: "test", company: 1};
-            spyOn(employeeService.http, "get").and.returnValue(of(expectedCompany));
-
-            employeeService.getEmployeeById(1).subscribe((result) => {
-                expect(result).toEqual(expectedCompany);
-            });
-
-            expect(employeeService.http.get).toHaveBeenCalledOnceWith(expectedUrl);
-        }));
-    });
 });
