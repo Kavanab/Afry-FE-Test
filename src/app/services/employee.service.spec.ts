@@ -61,18 +61,4 @@ describe("EmployeeService", () => {
             expect(employeeService.http.get).toHaveBeenCalledOnceWith(expectedUrl);
         }));
     });
-
-    describe("deleteEmployeeFromCompany()", () => {
-        it("should delete employee from a company", waitForAsync(() => {
-            
-            const expectedEmployee = {id: 1, firstName: "test", lastName: "test", company: 1};
-            spyOn(employeeService.snackbar, "success").and.callThrough();
-
-            employeeService.createEmployee({id: 1, firstName: "test", lastName: "test", company: 1}).subscribe((result) => {
-                expect(result).toEqual(expectedEmployee);
-            });
-
-            expect(employeeService.snackbar.success).toHaveBeenCalledWith("Created employee test test");
-        }));
-    });
 });

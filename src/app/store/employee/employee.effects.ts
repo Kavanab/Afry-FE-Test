@@ -19,7 +19,7 @@ export class EmployeeEffects {
         mergeMap((action: EmployeeActions.GetEmployees) => {
             return this.employeeService.getEmployees().pipe(
                 map((data: Employee[]) => new EmployeeActions.GetEmployeesSuccess(data)),
-                catchError((error: HttpErrorResponse) => of(new EmployeeActions.AddEmployeeFailure(error))),
+                catchError((error: HttpErrorResponse) => of(new EmployeeActions.GetEmployeesFailure(error))),
             );
         }),
     ); 
@@ -36,14 +36,14 @@ export class EmployeeEffects {
     );
 
     @Effect()
-    deleteEmployee$: Observable<Action> = this.actions$.pipe(
-        ofType(EmployeeActions.EmployeeActionType.DeleteEmployee),
-        mergeMap((action: EmployeeActions.DeleteEmployee) => {
-            console.log(action.employee);
+    updateEmployee$: Observable<Action> = this.actions$.pipe(
+        ofType(EmployeeActions.EmployeeActionType.UpdateEmployee),
+        mergeMap((action: EmployeeActions.UpdateEmployee) => {
+            console.log(action.employee, action.company);
             
-            return this.employeeService.deleteEmployeeFromCompany(action.employee).pipe(
-                map((data: Employee) => new EmployeeActions.DeleteEmployeeSuccess(data)),
-                catchError((error: HttpErrorResponse) => of(new EmployeeActions.AddEmployeeFailure(error))),
+            return this.employeeService.addCompanyToEmployee(action.employee, action.company).pipe(
+                map((data: Employee) => new EmployeeActions.UpdateEmployeeSuccess(data)),
+                catchError((error: HttpErrorResponse) => of(new EmployeeActions.UpdateEmployeeFailure(error))),
             );
         }),
     );

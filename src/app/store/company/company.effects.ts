@@ -7,6 +7,7 @@ import {CompanyService} from "src/app/services/company.service";
 import {Company} from "src/app/model/company";
 import {Action} from "@ngrx/store";
 import {HttpErrorResponse} from "@angular/common/http";
+import { Employee } from "src/app/model/employee";
 
 @Injectable()
 export class CompanyEffects {
@@ -19,7 +20,7 @@ export class CompanyEffects {
         mergeMap((action: CompanyActions.GetCompanies) => {
             return this.companyService.getCompanies().pipe(
                 map((data: Company[]) => new CompanyActions.GetCompaniesSuccess(data)),
-                catchError((error: HttpErrorResponse) => of(new CompanyActions.AddCompanyFailure(error))),
+                catchError((error: HttpErrorResponse) => of(new CompanyActions.GetCompaniesFailure(error))),
             );
         }),
     );    
@@ -31,6 +32,17 @@ export class CompanyEffects {
             return this.companyService.createCompany(action.company).pipe(
                 map((data: Company) => new CompanyActions.AddCompanySuccess(data)),
                 catchError((error: HttpErrorResponse) => of(new CompanyActions.AddCompanyFailure(error))),
+            );
+        }),
+    );
+
+    @Effect()
+    deleteEmployee$: Observable<Action> = this.actions$.pipe(
+        ofType(CompanyActions.CompanyActionType.DeleteEmployee),
+        mergeMap((action: CompanyActions.DeleteEmployee) => {
+            return this.companyService.deleteEmployeeFromCompany(action.employee).pipe(
+                map((data: Employee) => new CompanyActions.DeleteEmployeeSuccess(data)),
+                catchError((error: HttpErrorResponse) => of(new CompanyActions.DeleteEmployeeFailure(error))),
             );
         }),
     );

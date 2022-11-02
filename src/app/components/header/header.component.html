@@ -5,11 +5,14 @@
             <mat-icon aria-hidden="false" aria-label="menu icon" fontIcon="menu"></mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item routerLink="/employee">
-              <span>Create employee</span>
+            <button mat-menu-item routerLink="/employee" routerLinkActive="active-link">
+              <span>Create Employee</span>
             </button>
-            <button mat-menu-item routerLink="/company">
-              <span>Create company</span>
+            <button mat-menu-item routerLink="/company" routerLinkActive="active-link">
+              <span>Create Company</span>
+            </button>
+            <button mat-menu-item routerLink="/link-employees" routerLinkActive="active-link">
+                <span>Link Employees</span>
             </button>
         </mat-menu>
     </mat-toolbar>

@@ -5,7 +5,7 @@ import {AppState} from "../../store/state.model";
 import {Company} from "../../model/company";
 import {AddCompany, GetCompanies} from "../../store/company/company.actions";
 import {Employee} from "../../model/employee";
-import {DeleteEmployee} from "../../store/employee/employee.actions";
+import {DeleteEmployee} from "../../store/company/company.actions";
 
 @Component({
     selector: "app-create-company-container",

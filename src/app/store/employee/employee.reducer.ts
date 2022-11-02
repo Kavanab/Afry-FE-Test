@@ -12,7 +12,7 @@ export function EmployeeReducer(
             return [...state, ...action.employees];
         case EmployeeActionType.AddEmployeeSuccess:
             return [...state, action.employee];
-        case EmployeeActionType.DeleteEmployeeSuccess:
+        case EmployeeActionType.UpdateEmployeeSuccess:
             return [...state, action.employee];
         default:
             return state;

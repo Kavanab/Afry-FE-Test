@@ -1,37 +1,21 @@
-.page-title {
-    margin-top: 5%;
-}
-
-.mat-card-title {
-    font-family: serif;
-    margin: 2rem;
-    align-self: flex-start;
-}
-
 .create-company-container {
     display: flex;
     flex-direction: column;
 }
 
 .button-wrapper {
-    justify-content: flex-end;
+    justify-content: center;
     display: flex;
-    margin-right: 5rem;
 }
 
 .mat-table {
-    width: 70%;
-    margin-top: 4rem;
+    width: 100%;
     background: none;
-    border: 1px solid #c2185b;
 }
 .filter-by-company {
     width: 70%;
-    margin-top: 4rem;
+    margin-top: 2rem;
     display: block;
-}
-.mat-icon {
-    cursor: pointer;
 }
 
 ::ng-deep .mat-select-panel {
@@ -65,4 +49,19 @@ th {
     left: 1rem;
     top: 1.5rem;
     min-width: 100% !important;
+}
+
+.table-container {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.mat-header-row {
+    height: 3rem;
+    background: #ffff;
+}
+.mat-header-cell {
+    color: #c2185b;
 }

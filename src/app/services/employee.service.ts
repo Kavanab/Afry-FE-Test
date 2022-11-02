@@ -5,6 +5,7 @@ import {Employee} from "../model/employee";
 import {catchError, map, tap} from "rxjs/operators";
 import {SnackbarService} from "./snackbar.service";
 import {LocalStorageService} from "./local-storage.service";
+import {Company} from "../model/company";
 
 @Injectable({providedIn: "root"})
 export class EmployeeService {
@@ -50,14 +51,14 @@ export class EmployeeService {
         return of(employee);
     }
 
-    deleteEmployeeFromCompany(employee: Employee): Observable<Employee> {
-        const name = employee.lastName ? `${employee.firstName} ${employee.lastName}` : `${employee.firstName}`;
-        this.snackbar.success(`Deleted employee ${name} successfully`);
+    addCompanyToEmployee(updatedEmployee: Employee, selectedCompany: Company): Observable<Employee> {
+        
+        const employeeData: Employee = {...updatedEmployee, company: selectedCompany?.id};
         let savedData: Employee[] = JSON.parse(this.localService.getData("employeeList"));
-        Object.assign(savedData, savedData.map(el => el.id === employee.id ? employee : el));
+        Object.assign(savedData, savedData.map(el => el.id === updatedEmployee?.id ? employeeData : el));
             
         this.localService.saveData("employeeList", JSON.stringify(savedData));
-        return of(employee);
+        return of(employeeData);
     }
 
     private handleError<T>(operation = "operation", result?: T) {

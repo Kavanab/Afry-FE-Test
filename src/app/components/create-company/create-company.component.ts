@@ -1,9 +1,10 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from "@angular/core";
+import {AfterContentInit, ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild} from "@angular/core";
 import {Company} from "../../model/company";
 import {MatDialog} from "@angular/material/dialog";
 import {AddCompanyModalComponent} from "../add-company-modal/add-company-modal.component";
 import {LocalStorageService} from "../../services/local-storage.service";
 import {Employee} from "../../model/employee";
+import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
     selector: "app-create-company",
@@ -26,6 +27,13 @@ export class CreateCompanyComponent implements OnInit, OnChanges {
     dataSource;
 
     selectedCompany: any = "All";
+
+    @ViewChild(MatPaginator, {static: false})
+    set paginator(value: MatPaginator) {
+        if (this.dataSource){
+            this.dataSource.paginator = value;
+        }
+    }
 
     constructor(
         public dialog: MatDialog,
@@ -83,17 +91,17 @@ export class CreateCompanyComponent implements OnInit, OnChanges {
         this.columnDefs = [
             {
                 columnDef: "id",
-                header: "Id",
+                header: "Emp.ID",
                 cell: (element: Employee) => `${element.id}`,
             },
             {
                 columnDef: "firstName",
-                header: "First name",
+                header: "First Name",
                 cell: (element: Employee) => `${element.firstName}`,
             },
             {
                 columnDef: "lastName",
-                header: "Last name",
+                header: "Last Name",
                 cell: (element: Employee) => `${element.lastName}`,
             },
             {
@@ -103,7 +111,7 @@ export class CreateCompanyComponent implements OnInit, OnChanges {
             },
             {
                 columnDef: "action",
-                header: "Actions",
+                header: "Action",
                 cell: (element: Employee) => "",
             },
         ];
