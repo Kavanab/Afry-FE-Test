@@ -1,10 +1,37 @@
 # EmployeeMapping
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.8.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.6.
+# Installation. 
+```
+$ git clone https://github.com/Kavanab/Afry-FE-Test.git
+$ cd <path to Afry-FE-Test>
+$ npm install
+$ npm run start
+```
+## Technologies
+* Angular - 14.2.6
+* LocalStorage :  _to save Employee and Company JSON data (encrypted)_
+* Angular Material 
+* NgRx - 14.3.2 : _for store management_
 
+## Project Deatils
+* **View 1**: Create an Employee 
+    * Allows to create an Employee.
+    * Link a Company to the Employee and once Employee is created visible in View 2.
+    * If no Company is attached, Employee can be viewed and linked in View 3.
+* **View 2**: Company and Employee Management
+    * Allows to create a Company.
+    * List all Employees created in View 1 and linked to a Company.
+    * Filter Employees based on Company.
+    * Delete an Employee, which unlinks from a company and can be viewed in View 3.
+* **View 3**: Unliked Employees
+    * Lists all Employees who are not linked to any Companies.
+    * Link any Company created in View 2 to each Employee, once they are linked it can be viewed in View 2.
+
+__Note__: `_Sample data (2 Employees and 2 Companies) are created initially._`
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will take you to View 2 - to create an Employee/User. `http://localhost:4200/employee`
 
 ## Code scaffolding
 

@@ -33,15 +33,6 @@ export class EmployeeService {
         );
     }
 
-    /** GET employee by id. Will 404 if id not found */
-    getEmployeeById(id: number): Observable<Employee> {
-        const url = `${this.employeesUrl}/${id}`;
-        return this.http.get<Employee>(url).pipe(
-            map(data => data),
-            catchError(this.handleError<Employee>(`getEmployee id=${id}`)),
-        );
-    }
-
     createEmployee(employee: Employee): Observable<Employee> {
         const name = employee.lastName ? `${employee.firstName} ${employee.lastName}` : `${employee.firstName}`;
         this.snackbar.success(`Created employee ${name}`);

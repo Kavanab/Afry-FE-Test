@@ -48,21 +48,6 @@ describe("CompanyService", () => {
         }));
     });
 
-    describe("getCompanyById()", () => {
-        it("should get details of company", waitForAsync(() => {
-            const expectedUrl = "api/companies/1";
-            const expectedCompany = {id: 1, name: "test"};
-            spyOn(companyService.http, "get").and.returnValue(of(expectedCompany));
-
-            companyService.getCompanyById(1).subscribe((result) => {
-                expect(result).toEqual(expectedCompany);
-            });
-
-            expect(companyService.http.get).toHaveBeenCalledOnceWith(expectedUrl);
-        }));
-    });
-
-
     describe("deleteEmployeeFromCompany()", () => {
         it("should delete employee from a company", waitForAsync(() => {
             
