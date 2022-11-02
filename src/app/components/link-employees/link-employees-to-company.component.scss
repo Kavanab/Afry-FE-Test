@@ -1,6 +1,5 @@
 .mat-table {
     width: 70%;
-    margin-top: 4rem;
     background: none;
 }
 
@@ -8,6 +7,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 24rem;
+    overflow: auto;
 }
 .mat-column-action, .mat-column-done {
     width: 10%;
@@ -23,4 +24,12 @@ th {
 .confirm-button{
     justify-content: space-evenly;
     display: flex;
+}
+
+.mat-header-row {
+    height: 3rem;
+    background: #ffff;
+}
+.mat-header-cell {
+    color: #c2185b;
 }
